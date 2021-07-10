@@ -10,6 +10,6 @@ export const Footer = () => (
     justify="center"
     align="center"
   >
-    <Text fontSize="sm">©2021 Contacts Keeper. Made with excitment!</Text>
+    <Text fontSize="sm">©2021 Contacts Keeper. Made with excitement!</Text>
   </Flex>
 );
