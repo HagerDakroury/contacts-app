@@ -2,6 +2,7 @@ import { Button } from "@chakra-ui/button";
 import { Image } from "@chakra-ui/image";
 import { Box, BoxProps, Flex, Heading, Text, Stack } from "@chakra-ui/layout";
 import landing from "../../../src/assets/landing.svg";
+import { Link as RouterLink } from "react-router-dom";
 
 export const LandingCard: React.FC<BoxProps> = (props) => (
   <Box
@@ -35,20 +36,24 @@ export const LandingCard: React.FC<BoxProps> = (props) => (
           A convenient minimal contacts keeper web application
         </Text>
         <Stack direction="row" spacing={4} align="center">
-          <Button
-            colorScheme="cyan"
-            width={["50%", "50%", "unset"]}
-            textColor="white"
-          >
-            Login
-          </Button>
-          <Button
-            colorScheme="cyan"
-            width={["50%", "50%", "unset"]}
-            textColor="white"
-          >
-            Try for free
-          </Button>
+          <RouterLink to="/signin">
+            <Button
+              colorScheme="cyan"
+              width={["50%", "50%", "unset"]}
+              textColor="white"
+            >
+              Login
+            </Button>
+          </RouterLink>
+          <RouterLink to="/signup">
+            <Button
+              colorScheme="cyan"
+              width={["50%", "50%", "unset"]}
+              textColor="white"
+            >
+              Try for free
+            </Button>
+          </RouterLink>
         </Stack>
       </Box>
       <Image src={landing} px={[4, 4, "unset"]} boxSize="70%" />
