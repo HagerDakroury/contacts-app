@@ -9,6 +9,7 @@ export const Footer = () => (
     px={["4", "4", "20"]}
     justify="center"
     align="center"
+    width="100v"
   >
     <Text fontSize="sm">©2021 Contacts Keeper. Made with excitement!</Text>
   </Flex>
