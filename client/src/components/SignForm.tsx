@@ -1,9 +1,13 @@
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Heading } from "@chakra-ui/layout";
-import { useState } from "react";
+import React, { useState } from "react";
 
-const SignupForm = () => {
+type SignFormProps = {
+  title: string;
+  handler: (event: { preventDefault: () => void }) => void;
+};
+const SignForm: React.FC<SignFormProps> = ({ title, handler }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,10 +27,10 @@ const SignupForm = () => {
     >
       <Box p={10}>
         <Box textAlign="center">
-          <Heading textColor="#31B3C2">Signup</Heading>
+          <Heading textColor="#31B3C2">{title}</Heading>
         </Box>
         <Box my={20} textAlign="center">
-          <form>
+          <form onSubmit={handler}>
             <FormControl>
               <FormLabel>Username</FormLabel>
               <Input
@@ -54,7 +58,7 @@ const SignupForm = () => {
               bgColor="#31B3C2"
               textColor="#FFFFFF"
             >
-              Sign In
+              {title}
             </Button>
           </form>
         </Box>
@@ -63,4 +67,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default SignForm;

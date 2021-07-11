@@ -2,11 +2,11 @@ import { Box } from "@chakra-ui/layout";
 import SignForm from "../../components/SignForm";
 import { Footer } from "../../components/Footer";
 
-export const Signup = () => {
-  const title = "Sign Up";
+export const Signin = () => {
+  const title = "Sign In";
   const handleSignup = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    console.log("signed");
+    console.log("signed in");
   };
 
   return (
