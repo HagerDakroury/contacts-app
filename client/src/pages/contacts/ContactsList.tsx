@@ -1,4 +1,4 @@
-import { Stack, Flex, useDisclosure } from "@chakra-ui/react";
+import { Stack, Flex, useDisclosure, CircularProgress } from "@chakra-ui/react";
 import { Card } from "./ContactCard";
 import { Button } from "@chakra-ui/button";
 import { AddIcon } from "@chakra-ui/icons";
@@ -6,10 +6,14 @@ import NewContact from "./NewContact";
 import { useLogout } from "../../hooks/useAuthentiication";
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
+import { useQuery } from "react-query";
+import { getContacts } from "../../hooks/useContact";
 
 export const ContactsList = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoggedout, setLoggedout] = useState(false);
+
+  const { data, isLoading } = useQuery("contacts", getContacts);
 
   function Logout() {
     useLogout();
@@ -41,9 +45,25 @@ export const ContactsList = () => {
         </Button>
         <NewContact isOpen={isOpen} onClose={onClose}></NewContact>
       </Flex>
+      {isLoading ? (
+        <CircularProgress
+          isIndeterminate
+          size="25%"
+          color="teal"
+          alignSelf="center"
+        />
+      ) : (
+        ""
+      )}
 
-      <Card first="hager" last="eldakroury" email="hagerdakroury" />
-      <Card first="hager" last="hahaha" email="hagerdakroury" />
+      {data?.map((contact) => (
+        <Card
+          _id={contact._id}
+          first={contact.first}
+          last={contact.last}
+          email={contact.email}
+        />
+      ))}
     </Stack>
   );
 };

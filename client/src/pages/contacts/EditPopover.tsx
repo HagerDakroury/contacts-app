@@ -13,6 +13,7 @@ import { EditForm } from "./EditForm";
 
 interface EditPopoverCompProps {
   trigger?: React.ReactNode;
+  _id: string;
   first: string;
   last: string;
   email: string;
@@ -20,6 +21,7 @@ interface EditPopoverCompProps {
 
 export const EditPopover: React.FC<EditPopoverCompProps> = ({
   trigger,
+  _id,
   first,
   last,
   email,
@@ -43,6 +45,7 @@ export const EditPopover: React.FC<EditPopoverCompProps> = ({
         <EditForm
           firstFieldRef={firstFieldRef}
           onCancel={onClose}
+          _id={_id}
           first={first}
           last={last}
           email={email}

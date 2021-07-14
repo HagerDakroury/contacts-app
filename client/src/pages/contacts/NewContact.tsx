@@ -12,6 +12,8 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
+import { newContact } from "../../hooks/useContact";
 
 type NewContactProps = {
   isOpen: boolean;
@@ -24,7 +26,18 @@ const NewContact: React.FC<NewContactProps> = ({ isOpen, onClose }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const isInvalid = email === "" || lastName === "" || firstName === "";
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(newContact, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("contacts");
+      onClose();
+    },
+  });
+
+  function handleSave() {
+    mutate({ _id: "dummy", first: firstName, last: lastName, email: email });
+  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -63,8 +76,7 @@ const NewContact: React.FC<NewContactProps> = ({ isOpen, onClose }) => {
             bgColor="#31B3C2"
             textColor="#FFFFFF"
             mr={3}
-            onClick={onClose}
-            isDisabled={isInvalid}
+            onClick={handleSave}
           >
             Save
           </Button>

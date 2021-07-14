@@ -9,15 +9,36 @@ import {
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import React from "react";
 import { EditPopover } from "./EditPopover";
+import { useMutation, useQueryClient } from "react-query";
+import { deleteContact } from "../../hooks/useContact";
 
 type ContactCardProps = {
+  _id: string;
   first: string;
   last: string;
   email: string;
 };
-export const Card: React.FC<ContactCardProps> = ({ first, last, email }) => {
+export const Card: React.FC<ContactCardProps> = ({
+  _id,
+  first,
+  last,
+  email,
+}) => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(deleteContact, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("contacts");
+    },
+  });
+
+  const handleDelete = () => {
+    mutate({ _id, first, last, email });
+  };
+
   return (
     <Flex
+      id={_id}
       justify="center"
       p="2"
       direction="row"
@@ -48,6 +69,7 @@ export const Card: React.FC<ContactCardProps> = ({ first, last, email }) => {
               mr="2"
             />
           }
+          _id={_id}
           first={first}
           last={last}
           email={email}
@@ -58,6 +80,7 @@ export const Card: React.FC<ContactCardProps> = ({ first, last, email }) => {
           variant="outline"
           colorScheme="red"
           aria-label="Edit Contact"
+          onClick={handleDelete}
           icon={<DeleteIcon />}
         />
       </ButtonGroup>

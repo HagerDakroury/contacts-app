@@ -78,7 +78,7 @@ const SignForm: React.FC<SignFormProps> = ({
               {isFetching ? (
                 <CircularProgress isIndeterminate size="24px" color="teal" />
               ) : (
-                "sign"
+                title
               )}
             </Button>
           </form>
