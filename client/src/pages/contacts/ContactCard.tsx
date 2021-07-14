@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import React from "react";
+import { EditPopover } from "./EditPopover";
 
 type ContactCardProps = {
   first: string;
@@ -17,10 +18,6 @@ type ContactCardProps = {
 export const Card: React.FC<ContactCardProps> = ({ first, last, email }) => {
   return (
     <Flex
-      _hover={{
-        background: "gray.20",
-        color: "gray.500",
-      }}
       justify="center"
       p="2"
       direction="row"
@@ -28,7 +25,12 @@ export const Card: React.FC<ContactCardProps> = ({ first, last, email }) => {
       border="1px"
       borderColor="gray.200"
     >
-      <Box>
+      <Box
+        _hover={{
+          background: "gray.20",
+          color: "gray.500",
+        }}
+      >
         <Text size="md">
           {first} {last}
         </Text>
@@ -36,13 +38,22 @@ export const Card: React.FC<ContactCardProps> = ({ first, last, email }) => {
       </Box>
       <Spacer />
       <ButtonGroup variant="outline" spacing="1">
-        <IconButton
-          variant="outline"
-          colorScheme="teal"
-          aria-label="Edit Contact"
-          icon={<EditIcon />}
-          mr="2"
-        />
+        <EditPopover
+          trigger={
+            <IconButton
+              variant="outline"
+              colorScheme="teal"
+              aria-label="Edit Contact"
+              icon={<EditIcon />}
+              mr="2"
+            />
+          }
+          first={first}
+          last={last}
+          email={email}
+        >
+          {" "}
+        </EditPopover>
         <IconButton
           variant="outline"
           colorScheme="red"
