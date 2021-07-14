@@ -1,17 +1,32 @@
-import { FormControl, FormLabel, Input } from "@chakra-ui/react";
+import {
+  CircularProgress,
+  FormControl,
+  FormLabel,
+  Input,
+} from "@chakra-ui/react";
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Heading } from "@chakra-ui/layout";
 import React, { useState } from "react";
+import { ErrorMsg } from "../components/ErrorMsg";
 
 type SignFormProps = {
   title: string;
-  handler: (event: { preventDefault: () => void }) => void;
+  handler: (
+    event: { preventDefault: () => void },
+    username: string,
+    password: string
+  ) => void;
+  error: string;
+  isFetching: boolean;
 };
-const SignForm: React.FC<SignFormProps> = ({ title, handler }) => {
+const SignForm: React.FC<SignFormProps> = ({
+  title,
+  handler,
+  error,
+  isFetching,
+}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const isInvalid = password === "" || username === "";
 
   return (
     <Flex
@@ -30,8 +45,9 @@ const SignForm: React.FC<SignFormProps> = ({ title, handler }) => {
           <Heading textColor="#31B3C2">{title}</Heading>
         </Box>
         <Box my={20} textAlign="center">
-          <form onSubmit={handler}>
-            <FormControl>
+          <form onSubmit={(e) => handler(e, username, password)}>
+            {error && <ErrorMsg message={error} />}
+            <FormControl isRequired>
               <FormLabel>Username</FormLabel>
               <Input
                 placeholder="username"
@@ -40,12 +56,11 @@ const SignForm: React.FC<SignFormProps> = ({ title, handler }) => {
                 onChange={(e) => setUsername(e.currentTarget.value)}
               />
             </FormControl>
-            <FormControl mt={6}>
+            <FormControl mt={6} isRequired>
               <FormLabel>Password</FormLabel>
               <Input
                 type="password"
                 placeholder="*******"
-                rule={{ required: true }}
                 value={password}
                 onChange={(e) => setPassword(e.currentTarget.value)}
               />
@@ -54,11 +69,14 @@ const SignForm: React.FC<SignFormProps> = ({ title, handler }) => {
               width="full"
               mt={4}
               type="submit"
-              isDisabled={isInvalid}
               bgColor="#31B3C2"
               textColor="#FFFFFF"
             >
-              {title}
+              {isFetching ? (
+                <CircularProgress isIndeterminate size="24px" color="teal" />
+              ) : (
+                "sign"
+              )}
             </Button>
           </form>
         </Box>

@@ -1,17 +1,37 @@
 import { Box } from "@chakra-ui/layout";
 import SignForm from "../../components/SignForm";
 import { Footer } from "../../components/Footer";
+import { useSignup } from "../../hooks/useAuthentiication";
+import { useState } from "react";
 
 export const Signup = () => {
-  const title = "Sign Up";
-  const handleSignup = (event: { preventDefault: () => void }) => {
+  const [isFetching, setIsFetching] = useState(false);
+  const [error, setError] = useState("");
+
+  const HandleSignup = async (
+    event: { preventDefault: () => void },
+    username: string,
+    password: string
+  ) => {
+    setIsFetching(true);
     event.preventDefault();
-    console.log("signed");
+    try {
+      await useSignup(username, password);
+      setIsFetching(false);
+    } catch (error) {
+      setIsFetching(false);
+      setError(error);
+    }
   };
 
   return (
     <Box paddingX={[4, 4, 20]} paddingTop={[4, 4, 10]} height={"100%"}>
-      <SignForm title={title} handler={handleSignup} />
+      <SignForm
+        title="Sign Up"
+        handler={HandleSignup}
+        error={error}
+        isFetching={isFetching}
+      />
       <Footer />
     </Box>
   );

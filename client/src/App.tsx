@@ -3,9 +3,11 @@ import { MainRouter } from "./components/Router";
 
 function App() {
   return (
-    <ChakraProvider>
-      <MainRouter />
-    </ChakraProvider>
+    <>
+      <ChakraProvider>
+        <MainRouter />
+      </ChakraProvider>
+    </>
   );
 }
 
