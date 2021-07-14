@@ -1,4 +1,5 @@
 import express from "express";
+const cors = require("cors");
 import cookieParser from "cookie-parser";
 
 import { signupRouter } from "./src/routes/signup";
@@ -21,6 +22,8 @@ connectDb().then(() => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors());
+app.options("*", cors());
 
 app.use(signupRouter);
 app.use(loginRouter);
