@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Landing } from "../pages/landing/Landing";
 import { Signup } from "../pages/signup/Signup";
 import { Signin } from "../pages/signin/Signin";
+import { ContactsList } from "../pages/contacts/ContactsList";
 
 export const MainRouter = () => {
   return (
@@ -15,6 +16,9 @@ export const MainRouter = () => {
         </Route>
         <Route exact path="/signin">
           <Signin />
+        </Route>
+        <Route exact path="/dashboard">
+          <ContactsList />
         </Route>
       </Switch>
     </Router>

@@ -8,6 +8,7 @@ import { Button } from "@chakra-ui/button";
 import { Box, Flex, Heading } from "@chakra-ui/layout";
 import React, { useState } from "react";
 import { ErrorMsg } from "../components/ErrorMsg";
+import { Redirect } from "react-router-dom";
 
 type SignFormProps = {
   title: string;
@@ -18,12 +19,14 @@ type SignFormProps = {
   ) => void;
   error: string;
   isFetching: boolean;
+  isLoggedin: boolean;
 };
 const SignForm: React.FC<SignFormProps> = ({
   title,
   handler,
   error,
   isFetching,
+  isLoggedin,
 }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -81,6 +84,7 @@ const SignForm: React.FC<SignFormProps> = ({
           </form>
         </Box>
       </Box>
+      {isLoggedin ? <Redirect to="/dashboard" /> : ""}
     </Flex>
   );
 };

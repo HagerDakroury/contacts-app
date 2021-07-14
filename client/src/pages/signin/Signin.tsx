@@ -7,6 +7,7 @@ import { useState } from "react";
 export const Signin = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState("");
+  const [isLoggedin, setIsLoggedin] = useState(false);
 
   const HandleSignin = async (
     event: { preventDefault: () => void },
@@ -19,6 +20,7 @@ export const Signin = () => {
     try {
       await useSignin(username, password);
       setIsFetching(false);
+      setIsLoggedin(true);
     } catch (error) {
       setIsFetching(false);
       setError(error);
@@ -32,6 +34,7 @@ export const Signin = () => {
         handler={HandleSignin}
         error={error}
         isFetching={isFetching}
+        isLoggedin={isLoggedin}
       />
       <Footer />
     </Box>

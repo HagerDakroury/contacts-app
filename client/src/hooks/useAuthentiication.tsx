@@ -30,6 +30,6 @@ export const useSignin = async (username: string, password: string) => {
   });
 };
 
-export function logout() {
+export function useLogout() {
   localStorage.removeItem("user");
 }
