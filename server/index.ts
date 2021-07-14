@@ -7,6 +7,7 @@ import { verifyRouter } from "./src/routes/verify";
 import { newcontactRouter } from "./src/routes/new";
 import { editcontactRouter } from "./src/routes/edit";
 import { deletecontactRouter } from "./src/routes/delete";
+import { listcontactsRouter } from "./src/routes/list";
 
 import { connectDb } from "./src/models/connection";
 
@@ -27,6 +28,7 @@ app.use(verifyRouter);
 app.use(newcontactRouter);
 app.use(editcontactRouter);
 app.use(deletecontactRouter);
+app.use(listcontactsRouter);
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
