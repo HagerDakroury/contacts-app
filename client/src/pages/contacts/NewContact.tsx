@@ -10,6 +10,7 @@ import {
   ModalHeader,
   ModalContent,
   ModalOverlay,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
@@ -26,12 +27,16 @@ const NewContact: React.FC<NewContactProps> = ({ isOpen, onClose }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const toast = useToast();
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(newContact, {
     onSuccess: () => {
+      toast({ status: "success", description: "New Contact Added!" });
       queryClient.invalidateQueries("contacts");
-      onClose();
+    },
+    onError: (error: any) => {
+      toast({ status: "error", description: error?.response?.data });
     },
   });
 

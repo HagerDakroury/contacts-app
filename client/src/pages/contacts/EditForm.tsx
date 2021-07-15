@@ -7,10 +7,12 @@ import {
   FormLabel,
   Input,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { editContact } from "../../hooks/useContact";
+
 type EditFormProps = {
   firstFieldRef: React.MutableRefObject<null>;
   onCancel: () => void;
@@ -29,10 +31,18 @@ export const EditForm: React.FC<EditFormProps> = ({
 }) => {
   const [initialFields] = useState({ first, last, email });
   const [fields, setFields] = useState({ first, last, email });
+  const toast = useToast();
   const queryClient = useQueryClient();
+
+  queryClient.invalidateQueries("contacts");
+
   const { mutate } = useMutation(editContact, {
     onSuccess: () => {
+      toast({ status: "success", description: "Contact Edited!" });
       queryClient.invalidateQueries("contacts");
+    },
+    onError: (error: any) => {
+      toast({ status: "error", description: error?.response?.data });
     },
   });
 
@@ -43,7 +53,6 @@ export const EditForm: React.FC<EditFormProps> = ({
 
   const handleSave = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    console.log(fields);
     mutate({ _id, ...fields });
   };
 

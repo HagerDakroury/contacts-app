@@ -5,7 +5,6 @@ import { AddIcon } from "@chakra-ui/icons";
 import NewContact from "./NewContact";
 import { useLogout } from "../../hooks/useAuthentiication";
 import { useState } from "react";
-import { Redirect } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getContacts } from "../../hooks/useContact";
 
