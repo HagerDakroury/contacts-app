@@ -4,7 +4,6 @@ import cookieParser from "cookie-parser";
 
 import { signupRouter } from "./src/routes/signup";
 import { loginRouter } from "./src/routes/login";
-import { verifyRouter } from "./src/routes/verify";
 import { newcontactRouter } from "./src/routes/new";
 import { editcontactRouter } from "./src/routes/edit";
 import { deletecontactRouter } from "./src/routes/delete";
@@ -27,7 +26,6 @@ app.options("*", cors());
 
 app.use(signupRouter);
 app.use(loginRouter);
-app.use(verifyRouter);
 app.use(newcontactRouter);
 app.use(editcontactRouter);
 app.use(deletecontactRouter);
