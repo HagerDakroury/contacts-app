@@ -1,13 +1,7 @@
-import {
-  CircularProgress,
-  FormControl,
-  FormLabel,
-  Input,
-} from "@chakra-ui/react";
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Heading } from "@chakra-ui/layout";
 import React, { useState } from "react";
-import { ErrorMsg } from "../components/ErrorMsg";
 import { Redirect } from "react-router-dom";
 
 type SignFormProps = {
@@ -17,16 +11,14 @@ type SignFormProps = {
     username: string,
     password: string
   ) => void;
-  error: string;
-  isFetching: boolean;
   isLoggedin: boolean;
+  isLoading: boolean;
 };
 const SignForm: React.FC<SignFormProps> = ({
   title,
   handler,
-  error,
-  isFetching,
   isLoggedin,
+  isLoading,
 }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -49,7 +41,6 @@ const SignForm: React.FC<SignFormProps> = ({
         </Box>
         <Box my={20} textAlign="center">
           <form onSubmit={(e) => handler(e, username, password)}>
-            {error && <ErrorMsg message={error} />}
             <FormControl isRequired>
               <FormLabel>Username</FormLabel>
               <Input
@@ -74,12 +65,9 @@ const SignForm: React.FC<SignFormProps> = ({
               type="submit"
               bgColor="#31B3C2"
               textColor="#FFFFFF"
+              isLoading={isLoading}
             >
-              {isFetching ? (
-                <CircularProgress isIndeterminate size="24px" color="teal" />
-              ) : (
-                title
-              )}
+              {title}
             </Button>
           </form>
         </Box>
