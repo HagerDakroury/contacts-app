@@ -13,9 +13,7 @@ export const useSignup = function (
 ) {
   const { mutate: signup, ...rest } = useMutation<User, Error, SignupParams>(
     (params) => {
-      return axios
-        .post("http://localhost:5005/signup", params)
-        .then((res) => res.data);
+      return axios.post("/signup", params).then((res) => res.data);
     },
     {
       ...options,
@@ -33,9 +31,7 @@ export const useSignin = function (
 ) {
   const { mutate: signin, ...rest } = useMutation<User, Error, SignupParams>(
     (params) => {
-      return axios
-        .post("http://localhost:5005/login", params)
-        .then((res) => res.data);
+      return axios.post("/login", params).then((res) => res.data);
     },
     {
       ...options,

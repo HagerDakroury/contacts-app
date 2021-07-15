@@ -8,7 +8,7 @@ type Contact = {
 };
 
 export const getContacts = async (): Promise<Array<Contact>> => {
-  const { data } = await axios.get(`http://localhost:5005/list`, {
+  const { data } = await axios.get(`/list`, {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("user"),
     },
@@ -20,7 +20,7 @@ export const editContact = async (
   contact: Contact
 ): Promise<Array<Contact>> => {
   const { data } = await axios.post(
-    `http://localhost:5005/edit`,
+    `/edit`,
     { ...contact },
     {
       headers: {
@@ -33,7 +33,7 @@ export const editContact = async (
 
 export const newContact = async (contact: Contact): Promise<Array<Contact>> => {
   const { data } = await axios.post(
-    `http://localhost:5005/new`,
+    `/new`,
     { first: contact.first, last: contact.last, email: contact.email },
     {
       headers: {
@@ -48,7 +48,7 @@ export const deleteContact = async (
   contact: Contact
 ): Promise<Array<Contact>> => {
   const { data } = await axios.post(
-    `http://localhost:5005/delete`,
+    `/delete`,
     { ...contact },
     {
       headers: {
