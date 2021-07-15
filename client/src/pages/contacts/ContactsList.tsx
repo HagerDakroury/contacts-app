@@ -4,21 +4,23 @@ import { Button } from "@chakra-ui/button";
 import { AddIcon } from "@chakra-ui/icons";
 import NewContact from "./NewContact";
 import { useLogout } from "../../hooks/useAuthentiication";
-import { useState } from "react";
 import { useQuery } from "react-query";
 import { getContacts } from "../../hooks/useContact";
+import { Redirect, useHistory } from "react-router-dom";
+import { isLoggedIn } from "../../hooks/useAuthentiication";
 
 export const ContactsList = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isLoggedout, setLoggedout] = useState(false);
 
   const { data, isLoading } = useQuery("contacts", getContacts);
+  const history = useHistory();
 
   function Logout() {
     useLogout();
-    setLoggedout(true);
+    history.push("/login");
   }
 
+  if (!isLoggedIn()) return <Redirect to="/" />;
   return (
     <Stack direction="column" spacing={2} m={4}>
       <Flex direction="row-reverse" mb={50}>
@@ -57,6 +59,7 @@ export const ContactsList = () => {
 
       {data?.map((contact) => (
         <Card
+          key={contact._id}
           _id={contact._id}
           first={contact.first}
           last={contact.last}

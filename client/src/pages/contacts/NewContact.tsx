@@ -34,6 +34,7 @@ const NewContact: React.FC<NewContactProps> = ({ isOpen, onClose }) => {
     onSuccess: () => {
       toast({ status: "success", description: "New Contact Added!" });
       queryClient.invalidateQueries("contacts");
+      onClose();
     },
     onError: (error: any) => {
       toast({ status: "error", description: error?.response?.data });

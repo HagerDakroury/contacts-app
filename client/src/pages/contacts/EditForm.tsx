@@ -34,12 +34,11 @@ export const EditForm: React.FC<EditFormProps> = ({
   const toast = useToast();
   const queryClient = useQueryClient();
 
-  queryClient.invalidateQueries("contacts");
-
   const { mutate } = useMutation(editContact, {
     onSuccess: () => {
       toast({ status: "success", description: "Contact Edited!" });
       queryClient.invalidateQueries("contacts");
+      onCancel();
     },
     onError: (error: any) => {
       toast({ status: "error", description: error?.response?.data });

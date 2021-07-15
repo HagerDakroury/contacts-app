@@ -51,3 +51,7 @@ export const useSignin = function (
 export function useLogout() {
   localStorage.removeItem("user");
 }
+
+export function isLoggedIn() {
+  return localStorage.getItem("user");
+}

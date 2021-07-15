@@ -11,7 +11,7 @@ export const Signin = () => {
 
   const { signin, isLoading } = useSignin({
     onSuccess: () => {
-      toast({ status: "success", description: "Signed up!" });
+      toast({ status: "success", description: "Signed In!" });
       setIsLoggedin(true);
     },
     onError: (error: any) => {
