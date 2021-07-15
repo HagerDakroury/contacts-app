@@ -19,7 +19,9 @@ router.post(
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.send(errors.array({ onlyFirstError: true })[0].msg);
+      return res
+        .status(400)
+        .send(errors.array({ onlyFirstError: true })[0].msg);
     }
 
     const { first, last, email } = req.body;
