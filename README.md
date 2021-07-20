@@ -15,9 +15,9 @@ Check it out [live](https://contacts-app-manager.herokuapp.com/)
 -------------------
 1. Clone this repo
   ```git clone https://github.com/HagerDakroury/contacts-app.git ```
-2. Run ```yarn install && run start```
+2. Run ```yarn && yarn start```
 3. Go to the react client directory ```cd client```
-4. Run yarn ```install && yarn start```
+4. Run ```yarn && yarn start```
 
 ## ⛏️ Built With 
 -------------------
